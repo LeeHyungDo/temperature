@@ -16,7 +16,9 @@ var sensorPin = 18; //the GPIO pin number for sensor signal
 //Automatically update sensor value every 2 seconds
 setInterval = {function() {
     var readout = sensorLib.read(sensorType, sensorPin);
+    // #3 is blynk app virtual display number
     blynk.virtualWrite(3, readout.temperature.toFixed(1));
+    // #4 is blynk app virtual display number
     blynk.virtualWrite(4, readout.humidity.toFixed(1));
     
     console.log('humidity : ' + readout.humidity + '% ' + 'temperature: ' + readout.temperature + 'C');
