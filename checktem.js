@@ -1,15 +1,20 @@
-//requirement : npm install dht-sensor --save
-var sensorLib = require('dht-sensor');
+var http = require('http')
+  , mongoose = require('mongoose')
+  , temdata = require('./controllers/temdata.js');
 
-//setup snesor
-var sensorType = 11; //11 for DHT11, 22 for DHT22 and AM2302
-var sensorPin = 18; //the GPIO pin number for sensor signal
+//Mongo DB
+mongoose.connect('mongodb://127.0.0.1/temperatureDB');
+mongoose.connection.on('open', function() {
+        console.log('Connected to Mongoose');
+});
+
 
 //Automatically update sensor value every 2 seconds
-setInterval = {function() {
-    var readout = sensorLib.read(sensorType, sensorPin);
-    console.log('humidity : ' + readout.humidity + '% ' + 'temperature: ' + readout.temperature + 'C');
-  }, 2000);
+var sensor ={
+    read : function() {
+        temdata.create();
+        setTimeout(function() { sensor.read();}, 3000);
+  }
+}
 
-
-  
+sensor.read();  
