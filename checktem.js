@@ -9,11 +9,11 @@ mongoose.connection.on('open', function() {
 });
 
 
-//Automatically update sensor value every 2 seconds
+//Automatically update sensor value every 5 minutes
 var sensor ={
     read : function() {
         temdata.create();
-        setTimeout(function() { sensor.read();}, 3000);
+        setTimeout(function() { sensor.read();}, 300000);
   }
 }
 
